@@ -1,6 +1,6 @@
 // ** React Imports
 import { useState } from 'react'
-
+import axios from 'axios'
 // ** Next Imports
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -60,6 +60,7 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
 const LoginPage = () => {
   // ** State
   const [values, setValues] = useState({
+    email: '',
     password: '',
     showPassword: false
   })
@@ -70,6 +71,7 @@ const LoginPage = () => {
 
   const handleChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value })
+    console.log('handleChange', event.target.value)
   }
 
   const handleClickShowPassword = () => {
@@ -78,6 +80,25 @@ const LoginPage = () => {
 
   const handleMouseDownPassword = event => {
     event.preventDefault()
+    console.log('handleMouseDownPassword')
+  }
+
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/auth', {
+        email: email,
+        password: password
+      })
+
+      console.log(response.data) // Assuming your server responds with some data
+      // Redirect the user or perform any other action upon successful login
+      //save on the local storage the token
+      localStorage.setItem('token', response.data.token)
+      router.push('/pages/dashboard')
+    } catch (error) {
+      console.error('Error during login:', error)
+      // Handle errors, such as displaying an error message to the user
+    }
   }
 
   return (
@@ -161,10 +182,25 @@ const LoginPage = () => {
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
               Welcome to {themeConfig.templateName}! 👋🏻
             </Typography>
-            <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
+            <Typography variant='body2'>Please sign-in to your account and start your new Event</Typography>
           </Box>
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} />
+          <form
+            noValidate
+            autoComplete='off'
+            onSubmit={e => {
+              console.log('submit', e.target.email.value, e.target.password.value)
+              e.preventDefault()
+            }}
+          >
+            <TextField
+              autoFocus
+              fullWidth
+              id='email'
+              label='Email'
+              value={values.email}
+              onChange={handleChange('email')}
+              sx={{ marginBottom: 4 }}
+            />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
               <OutlinedInput
@@ -191,54 +227,19 @@ const LoginPage = () => {
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
               <FormControlLabel control={<Checkbox />} label='Remember Me' />
-              <Link passHref href='/'>
-                <LinkStyled onClick={e => e.preventDefault()}>Forgot Password?</LinkStyled>
-              </Link>
             </Box>
             <Button
               fullWidth
               size='large'
               variant='contained'
               sx={{ marginBottom: 7 }}
-              onClick={() => router.push('/')}
+              onClick={() => {
+                console.log('login', values)
+                handleLogin(values.email, values.password)
+              }}
             >
               Login
             </Button>
-            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <Typography variant='body2' sx={{ marginRight: 2 }}>
-                New on our platform?
-              </Typography>
-              <Typography variant='body2'>
-                <Link passHref href='/pages/register'>
-                  <LinkStyled>Create an account</LinkStyled>
-                </Link>
-              </Typography>
-            </Box>
-            <Divider sx={{ my: 5 }}>or</Divider>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Facebook sx={{ color: '#497ce2' }} />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Twitter sx={{ color: '#1da1f2' }} />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Github
-                    sx={{ color: theme => (theme.palette.mode === 'light' ? '#272727' : theme.palette.grey[300]) }}
-                  />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Google sx={{ color: '#db4437' }} />
-                </IconButton>
-              </Link>
-            </Box>
           </form>
         </CardContent>
       </Card>
