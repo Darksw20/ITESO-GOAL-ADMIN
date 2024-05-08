@@ -37,6 +37,10 @@ const DashboardTable = ({ entity, columns, dataUrl }) => {
           }
         }) // Use Axios to make GET request
         console.log('response:', entity, response.data[entity])
+        if (response.status === 401) {
+          window.location.href = '/login'
+          localStorage.removeItem('token')
+        }
         setData(response.data[entity])
         setLoading(false)
       } catch (error) {
@@ -46,7 +50,7 @@ const DashboardTable = ({ entity, columns, dataUrl }) => {
     }
 
     fetchData()
-  }, [dataUrl])
+  }, [dataUrl, entity])
 
   return (
     <Card>

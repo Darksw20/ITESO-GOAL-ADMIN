@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState } from 'react'
 import axios from 'axios'
-// ** Next Imports
+
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -85,21 +85,23 @@ const LoginPage = () => {
 
   const handleLogin = async (email, password) => {
     try {
-      const response = await axios.post(process.env.BACKEND_ENDPOINT + '/auth', {
+      const response = await axios.post('http://148.201.138.85:8080/api' + '/auth', {
         email: email,
         password: password
       })
 
       console.log(response.data) // Assuming your server responds with some data
       // Redirect the user or perform any other action upon successful login
-      if (response.data.user_type !== 'organizer') {
+      if (response.data.user.user_type !== 'organizer') {
         alert('You are not an organizer')
+
         return
       }
       localStorage.setItem('token', response.data.token)
       router.push('/pages/dashboard')
     } catch (error) {
       console.error('Error during login:', error)
+
       // Handle errors, such as displaying an error message to the user
     }
   }

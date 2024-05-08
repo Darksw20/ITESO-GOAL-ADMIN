@@ -41,7 +41,7 @@ const Matches = () => {
               'fk_local',
               'fk_visitor'
             ]}
-            dataUrl={process.env.BACKEND_ENDPOINT + '/match'}
+            dataUrl={'http://148.201.138.85:8080/api' + '/match'}
           />
         </Grid>
       </Grid>

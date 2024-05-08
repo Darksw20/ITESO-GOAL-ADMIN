@@ -30,7 +30,7 @@ const Teams = () => {
           <Table
             entity={'teams'}
             columns={['name', 'code', 'fk_event']}
-            dataUrl={process.env.BACKEND_ENDPOINT + '/team'}
+            dataUrl={'http://148.201.138.85:8080/api' + '/team'}
           />
         </Grid>
       </Grid>
