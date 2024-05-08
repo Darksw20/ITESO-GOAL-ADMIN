@@ -15,7 +15,7 @@ const navigation = () => {
     {
       title: 'Dashboard',
       icon: HomeOutline,
-      path: '/'
+      path: '/pages/dashboard'
     },
     {
       title: 'Account Settings',
@@ -23,53 +23,37 @@ const navigation = () => {
       path: '/account-settings'
     },
     {
-      sectionTitle: 'Pages'
+      sectionTitle: 'Control Panel'
     },
     {
-      title: 'Login',
+      title: 'Events',
       icon: Login,
-      path: '/pages/login',
-      openInNewTab: true
+      path: '/pages/control/events',
+      openInNewTab: false
     },
     {
-      title: 'Register',
+      title: 'Courts',
       icon: AccountPlusOutline,
-      path: '/pages/register',
-      openInNewTab: true
+      path: '/pages/control/courts',
+      openInNewTab: false
     },
     {
-      title: 'Error',
+      title: 'Matches',
       icon: AlertCircleOutline,
-      path: '/pages/error',
-      openInNewTab: true
+      path: '/pages/control/matches',
+      openInNewTab: false
     },
     {
-      sectionTitle: 'User Interface'
+      title: 'Teams',
+      icon: AlertCircleOutline,
+      path: '/pages/control/teams',
+      openInNewTab: false
     },
     {
-      title: 'Typography',
-      icon: FormatLetterCase,
-      path: '/typography'
-    },
-    {
-      title: 'Icons',
-      path: '/icons',
-      icon: GoogleCirclesExtended
-    },
-    {
-      title: 'Cards',
-      icon: CreditCardOutline,
-      path: '/cards'
-    },
-    {
-      title: 'Tables',
-      icon: Table,
-      path: '/tables'
-    },
-    {
-      icon: CubeOutline,
-      title: 'Form Layouts',
-      path: '/form-layouts'
+      title: 'Users',
+      icon: AlertCircleOutline,
+      path: '/pages/control/users',
+      openInNewTab: false
     }
   ]
 }

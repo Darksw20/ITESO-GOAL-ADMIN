@@ -92,7 +92,10 @@ const LoginPage = () => {
 
       console.log(response.data) // Assuming your server responds with some data
       // Redirect the user or perform any other action upon successful login
-      //save on the local storage the token
+      if (response.data.user_type !== 'organizer') {
+        alert('You are not an organizer')
+        return
+      }
       localStorage.setItem('token', response.data.token)
       router.push('/pages/dashboard')
     } catch (error) {
