@@ -27,7 +27,11 @@ const Teams = () => {
     <ApexChartWrapper>
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <Table entity={'teams'} columns={['name', 'code', 'fk_event']} dataUrl={'http://localhost:8080/api/team'} />
+          <Table
+            entity={'teams'}
+            columns={['name', 'code', 'fk_event']}
+            dataUrl={process.env.BACKEND_ENDPOINT + '/team'}
+          />
         </Grid>
       </Grid>
     </ApexChartWrapper>

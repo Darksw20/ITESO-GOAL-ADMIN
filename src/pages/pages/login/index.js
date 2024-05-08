@@ -85,7 +85,7 @@ const LoginPage = () => {
 
   const handleLogin = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/auth', {
+      const response = await axios.post(process.env.BACKEND_ENDPOINT + '/auth', {
         email: email,
         password: password
       })

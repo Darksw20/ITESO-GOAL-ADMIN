@@ -30,7 +30,7 @@ const Users = () => {
           <Table
             entity={'users'}
             columns={['email', 'first_name', 'last_name', 'birthday', 'user_type']}
-            dataUrl={'http://localhost:8080/api/user'}
+            dataUrl={process.env.BACKEND_ENDPOINT + '/user'}
           />
         </Grid>
       </Grid>

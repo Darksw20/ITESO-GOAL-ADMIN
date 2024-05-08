@@ -41,7 +41,7 @@ const Matches = () => {
               'fk_local',
               'fk_visitor'
             ]}
-            dataUrl={'http://localhost:8080/api/match'}
+            dataUrl={process.env.BACKEND_ENDPOINT + '/match'}
           />
         </Grid>
       </Grid>
